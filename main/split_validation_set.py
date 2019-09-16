@@ -38,7 +38,6 @@ logging.info('Spliting train, test and validation sets')
 train_set = data.iloc[:15121]
 test_set = data.iloc[15121:]
 validation_set = test_set[['Id', 'Cover_Type']]
-test_set = test_set.drop('Cover_Type', 1)
 
 logging.info('Saving training set')
 train_set.to_csv(data_input_path/train_output_file)
