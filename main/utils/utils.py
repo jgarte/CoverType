@@ -20,7 +20,7 @@ def calculate_stoneyness(dataframe):
     """
     This function creates a new variabel based on the stone level of the soil.
     """
-    logging.info('> Creating stoneyness variable')
+    logging.info('Creating stoneyness variable')
     dataframe['Stoneyness'] = sum(i * dataframe['Soil_Type{}'.format(i)] for i in range(1, 41))
 
     stoneyness = [4, 3, 1, 1, 1, 2, 0, 0, 3, 1, 
@@ -50,12 +50,12 @@ def prepare_dataset(df):
     
     df = calculate_stoneyness(df)
 
-    logging.info('> Aggregating wilderness dimensions')
+    logging.info('Aggregating wilderness dimensions')
     df['Wilderness'] = df.apply(lambda x: compact_columns(x, df, wilderness_areas), axis=1)
-    logging.info('> Aggregating soiltype dimensions')
+    logging.info('Aggregating soiltype dimensions')
     df['SoilType'] = df.apply(lambda x: compact_columns(x, df, soil_types), axis=1)
     
-    logging.info('> Dropping one hot encoded dimensions')
+    logging.info('Dropping one hot encoded dimensions')
     df = df.drop(soil_types, 1)
     df = df.drop(wilderness_areas, 1)
     
@@ -88,6 +88,6 @@ def reduce_mem_usage(df, verbose=True):
                     df[col] = df[col].astype(np.float64)
     end_mem = df.memory_usage(deep=True).sum() / 1024**2
     
-    if verbose: logging.info('> Mem. usage decreased to {:5.2f} Mb ({:.1f}% reduction)'.format(end_mem, 100 * (start_mem - end_mem) / start_mem))
+    if verbose: logging.info('Mem. usage decreased to {:5.2f} Mb ({:.1f}% reduction)'.format(end_mem, 100 * (start_mem - end_mem) / start_mem))
     
     return df

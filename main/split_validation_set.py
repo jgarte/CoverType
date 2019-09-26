@@ -11,7 +11,7 @@ train_output_file = Path('train.csv')
 test_output_file = Path('test.csv')
 validation_file = Path('validation.csv')
 file = Path('covtype.csv')
-test_index = 15121
+test_index = 15120
 
 column_names = ['Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology',
                 'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways',
@@ -35,8 +35,8 @@ data = pd.read_csv(data_input_path/file, names=column_names).reset_index()
 data.rename({'index': 'Id'}, axis=1, inplace=True)
 
 logging.info('Spliting train, test and validation sets')
-train_set = data.iloc[:15121]
-test_set = data.iloc[15121:]
+train_set = data.iloc[:test_index]
+test_set = data.iloc[test_index:]
 validation_set = test_set[['Id', 'Cover_Type']]
 
 logging.info('Saving training set')
